@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guru Sai • Portfolio</title>
+  <meta name="description" content="Futuristic portfolio of Your Name: Developer, Designer, Innovator." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0b0f;
+      --bg-accent: #0f1117;
+      --text: #e6e9ef;
+      --muted: #a4a9b6;
+      --primary: #7c3aed;
+      --primary-2: #22d3ee;
+      --glass: rgba(255, 255, 255, 0.06);
+      --glass-border: rgba(255, 255, 255, 0.14);
+      --radius: 16px;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 80% -20%, rgba(124, 58, 237, 0.15), transparent 40%),
+                  radial-gradient(1000px 700px at -10% 10%, rgba(34, 211, 238, 0.18), transparent 45%),
+                  var(--bg);
+      overflow-x: hidden;
+    }
+    #bg { position: fixed; inset: 0; z-index: -1; }
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px) saturate(120%);
+      border-radius: var(--radius);
+    }
+    .nav {
+      position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; background: linear-gradient(180deg, rgba(10,11,15,0.85), rgba(10,11,15,0.45) 60%, transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(8px); z-index: 10;
+    }
+    .nav .logo { font-family: "Space Grotesk", Inter, sans-serif; font-weight: 800; letter-spacing: 0.5px; color: var(--text); text-decoration: none; }
+    .nav nav { display: flex; align-items: center; gap: 16px; }
+    .nav nav a { color: var(--muted); text-decoration: none; font-weight: 600; }
+    .nav nav a:hover { color: var(--text); }
+    #themeToggle { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--glass-border); background: var(--glass); color: var(--text); cursor: pointer; }
+    .section { padding: 72px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-head { margin-bottom: 28px; }
+    .section-head h2 { font-family: "Space Grotesk"; font-size: 28px; margin: 0 0 6px; }
+    .section-head p { color: var(--muted); margin: 0; }
+    .hero { padding-top: 96px; }
+    .hero .hero-content { padding: 28px; }
+    .eyebrow { color: var(--primary-2); letter-spacing: 2px; font-weight: 700; font-size: 12px; }
+    .hero h1 { font-family: "Space Grotesk"; font-weight: 800; font-size: 44px; line-height: 1.1; margin: 8px 0 12px; }
+    .hero .name { background: linear-gradient(90deg, var(--primary), var(--primary-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .subtitle { color: var(--muted); max-width: 720px; }
+    .quick-actions { display: flex; gap: 12px; margin: 16px 0 8px; }
+    .hero-meta { list-style: none; padding: 0; margin: 16px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .hero-meta li { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; padding: 10px 12px; }
+    .hero-meta span { color: var(--muted); display: block; font-size: 12px; }
+    .hero-meta strong { font-size: 14px; }
+    .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .about-card { padding: 18px; }
+    .ticks { padding-left: 16px; color: var(--muted); }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { border: 1px solid var(--glass-border); background: var(--glass); padding: 6px 10px; border-radius: 999px; font-size: 12px; }
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .skill { padding: 16px; }
+    .skill-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .skill-top span { color: var(--muted); font-size: 12px; }
+    .skill ul { margin: 0; padding-left: 18px; color: var(--muted); }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .project { padding: 16px; position: relative; }
+    .project-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .tag { color: var(--primary-2); font-size: 12px; font-weight: 700; }
+    .project-actions { display: flex; gap: 8px; margin-top: 8px; }
+    .timeline { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .time-card { padding: 16px; }
+    .time-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .time-card ul { margin: 0; padding-left: 18px; color: var(--muted); }
+    .contact-form { padding: 16px; }
+    .contact-form .row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .contact-form label { display: grid; gap: 6px; }
+    .contact-form input, .contact-form textarea { width: 100%; background: var(--bg-accent); border: 1px solid var(--glass-border); color: var(--text); border-radius: 12px; padding: 12px 14px; outline: none; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--primary-2); box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--glass-border); background: var(--glass); color: var(--text); text-decoration: none; font-weight: 700; }
+    .btn.primary { background: linear-gradient(90deg, rgba(124,58,237,0.18), rgba(34,211,238,0.18)); border-color: rgba(124,58,237,0.45); }
+    .btn.ghost { background: transparent; }
+    .btn.small { padding: 8px 10px; font-weight: 600; }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
+    .footer { padding: 32px 24px 64px; }
+    .footer .glass { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; }
+    .footer a { color: var(--muted); text-decoration: none; }
+    .footer a:hover { color: var(--text); }
+    .btn, .glass, .chip, .hero-meta li, .contact-form input, .contact-form textarea { transition: all .2s ease; }
+    .light {
+      --bg: #f6f7fb; --bg-accent: #ffffff; --text: #0a0b0f; --muted: #3f4552; --glass: rgba(255, 255, 255, 0.75); --glass-border: rgba(10, 11, 15, 0.12);
+      background: radial-gradient(1200px 800px at 70% -20%, rgba(124, 58, 237, 0.08), transparent 40%),
+                  radial-gradient(1000px 700px at -10% 10%, rgba(34, 211, 238, 0.10), transparent 45%),
+                  var(--bg);
+    }
+    @media (max-width: 980px) {
+      .about-grid { grid-template-columns: 1fr 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .timeline { grid-template-columns: 1fr; }
+      .hero-meta { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .section { padding: 56px 16px; }
+      .nav nav { gap: 10px; }
+      .contact-form .row { grid-template-columns: 1fr; }
+      .about-grid, .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+      .footer .glass { flex-direction: column; gap: 8px; align-items: flex-start; }
+      .hero h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg"></canvas>
+
+  <header class="nav">
+    <a class="logo" href="#">&lt;Home&gt;</a>
+    <nav>
+      <button id="themeToggle" aria-label="Toggle theme">◐</button>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact" class="cta">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero" class="section hero">
+      <div class="hero-content glass">
+        <p class="eyebrow">Available for Work</p>
+        <h1>
+          <span class="hi">Hi, I’m</span>
+          <span class="name">Kandikonda Guru Sai</span>
+        </h1>
+        <p class="subtitle">Building elegant, scalable experiences with modern web technologies.</p>
+        <div class="quick-actions">
+          <a href="#projects" class="btn primary">View Projects</a>
+          <a href="#contact" class="btn ghost">Hire Me</a>
+        </div>
+        <ul class="hero-meta">
+          <li><span>Location</span><strong>Tiruvuru, Andhra Pradesh, India</strong></li>
+          <li><span>Email</span><strong>kandikondagurusai22@gmail.com</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <div class="section-head">
+        <h2>About</h2>
+        <p>Curious and passionate about building high-quality software solutions with a focus on delivering efficient, user-friendly, and impactful experiences.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card glass">
+          <h3>Bio</h3>
+          <p>
+            I am a motivated and detail-oriented Data Science graduate with strong skills in Python, SQL, and data visualization tools like Power BI. 
+            I enjoy solving data-driven problems and delivering actionable insights. Beyond academics, I am passionate about cricket, drawing, and exploring new technologies.
+        </p>
+        </div>
+        <div class="about-card glass">
+          <h3>Highlights</h3>
+          <ul class="ticks">
+            <li>Proficient in Python, SQL, Power BI, and AWS with strong data analysis and visualization skills.</li>
+            <li>Hands-on project experience in crime prediction, e-commerce analytics, IPL data analysis, and cloud deployment.</li>
+            <li>Completed internships & certifications in Python, Salesforce CRM, Data Science, AWS, and Java.</li>
+          </ul>
+        </div>
+        <div class="about-card glass">
+          <h3>Domains</h3>
+          <div class="chips">
+            <span class="chip">Data Science & Analytics</span>
+            <span class="chip">Database Management</span>
+            <span class="chip">Cloud Computing</span>
+            <span class="chip">Business Intelligence & Visualization</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section skills">
+      <div class="section-head">
+        <h2>Skills</h2>
+        <p>A selection of technologies I work with daily.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill glass">
+          <div class="skill-top">
+            <h3>Frontend</h3>
+            <span>Advanced</span>
+          </div>
+          <ul>
+            <li>Languages: HTML, CSS, JavaScript (Beginner)</li>
+            <li>Visualization & UI Tools: Power BI</li>
+          </ul>
+        </div>
+        <div class="skill glass">
+          <div class="skill-top">
+            <h3>Backend</h3>
+            <span>Advanced</span>
+          </div>
+          <ul>
+            <li>Programming: Python, Java (Beginner)</li>
+            <li>Database Management: SQL, SQL Workbench</li>
+          </ul>
+        </div>
+        <div class="skill glass">
+          <div class="skill-top">
+            <h3>Cloud & Ops</h3>
+            <span>Advanced</span>
+          </div>
+          <ul>
+            <li>AWS (EC2, VPC, CloudWatch Monitoring)</li>
+          </ul>
+        </div>
+        <div class="skill glass">
+          <div class="skill-top">
+            <h3>Data Science & Analytics</h3>
+            <span>Advance</span>
+          </div>
+          <ul>
+            <li>Data preprocessing, Feature Engineering, Clustering (K-Means), Data Cleaning</li>
+            <li>Pandas, NumPy for analytics</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section projects">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <p>Recent work and experiments.</p>
+      </div>
+      <div class="projects-grid">
+        <article class="project glass">
+          <div class="project-head">
+            <h3>Ipl Data Analysis</h3>
+            <span class="tag"></span>
+          </div>
+          <p>Performed data cleaning, transformation, and exploratory analysis in Jupyter Notebook using Pandas & NumPy on IPL match, player, and delivery datasets.</p>
+          <p>Designed interactive Power BI dashboards to visualize player performance, team comparisons, and match insights for better decision-making.</p>
+          <div class="project-actions">
+          </div>
+        </article>
+        <article class="project glass">
+          <div class="project-head">
+            <h3>E-commerce Sales Database</h3>
+          </div>
+          <p>Database design (Customers, Products, Orders, OrderItems),Data relationships (foreign keys),Analytics queries (top-selling items, customer spending, category revenue)</p>
+          <div class="project-actions">
+          </div>
+        </article>
+        <article class="project glass">
+          <div class="project-head">
+            <h3>Crime Rate Prediction Using K-Means clustering Algorithm</h3>
+            <span class="tag"></span>
+          </div>
+          <p>Collected and preprocessed real-world crime datasets (state/district-wise) using Pandas, handling missing
+ values, normalization, and feature selection.</p>
+          <p> Applied K-Means Clustering to segment areas into different risk zones.</p>
+          <div class="project-actions">
+            
+          </div>
+        </article>
+
+        
+      </div>
+    </section>
+
+    <section id="experience" class="section experience">
+      <div class="section-head">
+        <h2>Experience</h2>
+        <p>Roles, impact, and what I shipped.</p>
+      </div>
+      <div class="timeline">
+        <div class="time-card glass">
+          <div class="time-top">
+            <h3>Python Internship – Eduguine Technologies</h3>
+            <span>Sep–Nov 2022</span>
+          </div>
+          <ul>
+            <li>Proficient in Python and data analysis libraries (Pandas, NumPy), with hands-on experience.</li>
+            <li>Learned about core programming concepts such as loops, conditionals, exception handling, and file I/O in
+ Python.</li>
+          </ul>
+        </div>
+        <div class="time-card glass">
+          <div class="time-top">
+            <h3> Data Science and Analytics  Internship - Zidio Development</h3>
+            <span> Mar– June 2025
+</span>
+          </div>
+          <ul>
+            <li>Assisting in analyzing large datasets using Python libraries such as Pandas and NumPy.</li>
+            <li>Participating in weekly team meetings, sprint planning, and progress updates. Python.</li>
+          </ul>
+        </div>
+        <div class="time-card glass">
+          <div class="time-top">
+            <h3>Cloud Engineer Intern - Dc InfoTech</h3>
+            <span>May- Aug 2025</span>
+          </div>
+          <ul>
+            <li>Gained hands-on experience with Google Cloud Platform (GCP) services including Compute Engine, Cloud Storage, and BigQuery.</li>
+            <li>Worked on deploying applications, managing cloud resources, and implementing monitoring and security best practices using GCP tools.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <div class="section-head">
+        <h2>Contact</h2>
+        <p>Let’s build something great together.</p>
+      </div>
+      <form class="contact-form glass" onsubmit="return false;">
+        <div class="row">
+          <label>
+            <span>Name</span>
+            <input type="text" placeholder="Your Name" required />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" placeholder="you@example.com" required />
+          </label>
+        </div>
+        <label>
+          <span>Message</span>
+          <textarea rows="5" placeholder="Tell me about your project..." required></textarea>
+        </label>
+        <div class="row actions">
+          <button class="btn primary" type="submit">Send Message</button>
+          <a class="btn ghost" href="mailto:you@example.com">Email Me</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="glass">
+      <p>© <span id="year"></span> Guru Sai. All rights reserved.</p>
+      <div class="links">
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
+        <a href="#">Twitter</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const pref = localStorage.getItem('theme');
+    if (pref === 'light') document.body.classList.add('light');
+    themeToggle.addEventListener('click', () => {
+      const isLight = document.body.classList.toggle('light');
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles;
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      particles = Array.from({ length: Math.min(140, Math.floor(width * height / 25000)) }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.6 + 0.4
+      }));
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function step() {
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = i % 2 ? 'rgba(34, 211, 238, 0.6)' : 'rgba(124, 58, 237, 0.6)';
+        ctx.fill();
+      }
+      ctx.lineWidth = 0.6;
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const p1 = particles[i], p2 = particles[j];
+          const dx = p1.x - p2.x, dy = p1.y - p2.y;
+          const d2 = dx*dx + dy*dy;
+          if (d2 < 120 * 120) {
+            const a = 1 - Math.sqrt(d2) / 120;
+            ctx.strokeStyle = `rgba(124, 58, 237, ${a * 0.25})`;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  </script>
+</body>
+</html>
